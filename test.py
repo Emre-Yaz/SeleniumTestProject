@@ -1,6 +1,10 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
-import os
+from selenium.webdriver.common.keys import Keys
+import time
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 chromedriver_path = "C:/Users/monster/PycharmProjects/TestSeleniumProject/Driver/chromedriver.exe"
 
@@ -16,24 +20,18 @@ chrome_options.add_experimental_option("prefs", {
 
 driver = webdriver.Chrome(service=ser_obj, options=chrome_options)
 
-driver.get("https://emre-yaz.github.io/")
+driver.get("https://bstackdemo.com/")
 driver.maximize_window()
 
-# Capture the screenshot as binary data
-screenshot_binary = driver.get_screenshot_as_png()
+try:
+    shelfc = WebDriverWait(driver, 10).until(
+        EC.presence_of_element_located((By.CLASS_NAME, "shelf-container"))
+    )
 
-# Specify the path and filename for the screenshot
-screenshot_path = "screenshots/screenshot.png"
+    titles = shelfc.find_elements(by=By.CLASS_NAME,value="shelf-item__title")
 
-# Save the binary data to a file
-with open(screenshot_path, "wb") as file:
-    file.write(screenshot_binary)
+    for title in titles:
+        print(title.text)
 
-# Verify the screenshot is saved
-if os.path.isfile(screenshot_path):
-    print("Screenshot saved successfully at:", os.path.abspath(screenshot_path))
-else:
-    print("Failed to save the screenshot.")
-
-# Close the WebDriver
-driver.close()
+finally:
+    driver.quit()
