@@ -50,3 +50,4 @@ note.send_keys("Hey!")
 # Find submit button via XPATH and click
 subBut = driver.find_element(By.XPATH, "//button[@type='submit']")
 subBut.click()
+
