@@ -82,5 +82,6 @@ try:
         count = get_cookie_count(driver)
         purchase_items(driver, count)
 
+# Exceptions
 except Exception as e:
     print("An error occurred:", e)
