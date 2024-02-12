@@ -40,7 +40,7 @@ def get_product_price(driver, product_id):
 
 
 def purchase_items(driver, budget):
-    for i in range(1, -1, -1):
+    for i in range(0, 11, 1):
         product_id = "productPrice" + str(i)
         price = get_product_price(driver, product_id)
         if price <= budget:
